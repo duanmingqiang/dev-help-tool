@@ -10,13 +10,16 @@ function getFormatJsonData(value: string, type: string) {
         let formatData = {}
         switch (type) {
             case '001':
-                formatData = eval('(' + value + ')')
+                // eslint-disable-next-line no-new-func
+                formatData = (new Function("return " + value))()
                 break;
             case '002':
-                formatData = eval('(' + atob(value) + ')')
+                // eslint-disable-next-line no-new-func
+                formatData = (new Function("return " + value))()
                 break;
             default:
-                formatData = eval('(' + value + ')')
+                // eslint-disable-next-line no-new-func
+                formatData = (new Function("return " + value))()
                 break;
         }
         return formatData
