@@ -15,7 +15,7 @@ function getFormatJsonData(value: string, type: string) {
                 break;
             case '002':
                 // eslint-disable-next-line no-new-func
-                formatData = (new Function("return " + value))()
+                formatData = (new Function("return " + atob(value)))()
                 break;
             default:
                 // eslint-disable-next-line no-new-func
@@ -24,6 +24,7 @@ function getFormatJsonData(value: string, type: string) {
         }
         return formatData
     } catch (error) {
+        console.log(error)
         return {}
     }
 }
