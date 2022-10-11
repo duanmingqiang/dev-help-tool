@@ -1,0 +1,19 @@
+// 拖拽外层容器
+.draggable-container-wrap {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    // 拖拽组件容器
+    .draggable-container-group {
+        width: 100%;
+        margin: 11px;
+        // 拖拽分组header
+        .draggable-group-header {
+            
+        }
+        // 拖拽组件
+        .draggable-list-item {
+            // color: red;
+        }
+    }
+}
