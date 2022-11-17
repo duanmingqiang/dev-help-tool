@@ -1,8 +1,8 @@
+import { Button } from 'antd';
 import { useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
-import { CAHCE_DATA, setStroagPlanData } from './default-data';
+import { CAHCE_DATA } from './default-data';
 import { DroppableList } from './droppable-list';
-
 
 export function PlanList() {
     const [planData, setPlanData] = useState(CAHCE_DATA)
@@ -20,7 +20,7 @@ export function PlanList() {
             let tempData = draggableGroup.planList[source.index]
             draggableGroup.planList[source.index] = draggableGroup.planList[destination.index]
             draggableGroup.planList[destination.index] = tempData
-            setStroagPlanData(clonePanelData)
+            // setStroagPlanData(clonePanelData)
             setPlanData(clonePanelData)
             return 
         }
@@ -30,11 +30,28 @@ export function PlanList() {
         const draggableDestinationGroup = clonePanelData.find((item: any) => { return item.type === destination.droppableId })
         const targetDraggableItem = draggableSourceGroup.planList.splice(source.index, 1)
         draggableDestinationGroup.planList.splice(destination.index, 0, targetDraggableItem[0])
-        setStroagPlanData(clonePanelData)
+        // setStroagPlanData(clonePanelData)
         setPlanData(clonePanelData)
     }
+    // 处理新增
+    const addNewPlan = () => {
+        const clonePanelData = JSON.parse((JSON.stringify(planData)))
+        const waitPlan = clonePanelData.find((v:any) => v.type === 'waitPlan');
+        const randomId = parseInt((Math.random() * 1000000).toString()).toString()
+        waitPlan.planList.unshift({
+            id: randomId,
+            content: '新计划' + randomId
+        })
+        // setStroagPlanData(clonePanelData)
+        setPlanData(clonePanelData)
+    } 
     return (
     <div>
+        <div>
+            <Button type='primary' onClick={() => {
+                addNewPlan()
+            }}>新增</Button>
+        </div>
         <DragDropContext onDragEnd={onDragEnd}>
             <div className='draggable-container-wrap'>
                 <DroppableList planData={planData}></DroppableList>
