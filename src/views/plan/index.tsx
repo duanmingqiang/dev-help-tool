@@ -47,10 +47,10 @@ export function PlanList() {
     } 
     return (
     <div>
-        <div>
+        <div style={ {textAlign: 'left'} }>
             <Button type='primary' onClick={() => {
                 addNewPlan()
-            }}>新增</Button>
+            }} >新增</Button>
         </div>
         <DragDropContext onDragEnd={onDragEnd}>
             <div className='draggable-container-wrap'>
