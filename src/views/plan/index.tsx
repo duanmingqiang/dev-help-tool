@@ -1,9 +1,8 @@
-import { Button } from 'antd';
 import { useState } from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
+import { AddTask } from './components/add-task';
 import { CAHCE_DATA } from './default-data';
 import { DroppableList } from './droppable-list';
-
 export function PlanList() {
     const [planData, setPlanData] = useState(CAHCE_DATA)
 
@@ -20,7 +19,6 @@ export function PlanList() {
             let tempData = draggableGroup.planList[source.index]
             draggableGroup.planList[source.index] = draggableGroup.planList[destination.index]
             draggableGroup.planList[destination.index] = tempData
-            // setStroagPlanData(clonePanelData)
             setPlanData(clonePanelData)
             return 
         }
@@ -30,30 +28,30 @@ export function PlanList() {
         const draggableDestinationGroup = clonePanelData.find((item: any) => { return item.type === destination.droppableId })
         const targetDraggableItem = draggableSourceGroup.planList.splice(source.index, 1)
         draggableDestinationGroup.planList.splice(destination.index, 0, targetDraggableItem[0])
-        // setStroagPlanData(clonePanelData)
         setPlanData(clonePanelData)
     }
     // 处理新增
-    const addNewPlan = () => {
+    const addNewPlan = (params:any) => {
+        console.log('params111111111', params)
         const clonePanelData = JSON.parse((JSON.stringify(planData)))
         const waitPlan = clonePanelData.find((v:any) => v.type === 'waitPlan');
         const randomId = parseInt((Math.random() * 1000000).toString()).toString()
         waitPlan.planList.unshift({
             id: randomId,
-            content: '新计划' + randomId
+            content: params.taskContent
+            // '新计划' + randomId
         })
-        // setStroagPlanData(clonePanelData)
         setPlanData(clonePanelData)
     } 
     return (
-    <div>
-        <div style={ {textAlign: 'left'} }>
-            <Button type='primary' onClick={() => {
-                addNewPlan()
-            }} >新增</Button>
+    <div className='plan-container-wrap'>
+        <div  className="plan-header">
+            <span className='title'>任务图</span>
+            <AddTask addNewPlan={addNewPlan}></AddTask>
+            {/* <Button type='primary' size='small' onClick={() => { addNewPlan() }} >新增</Button> */}
         </div>
         <DragDropContext onDragEnd={onDragEnd}>
-            <div className='draggable-container-wrap'>
+            <div className='plan-body'>
                 <DroppableList planData={planData}></DroppableList>
             </div>
         </DragDropContext>

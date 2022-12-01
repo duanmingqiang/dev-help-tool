@@ -1,6 +1,4 @@
 import { Draggable } from 'react-beautiful-dnd';
-
-
 // 设置样式
 const getItemStyle = (isDragging: any, draggableStyle: any) => ({
     // some basic styles to make the items look a bit nicer
@@ -16,10 +14,8 @@ const getItemStyle = (isDragging: any, draggableStyle: any) => ({
 // 拖拽组件列表
 export function DraggableList(props: any) {
     const planList = props.planInfo.planList || []
-    // const planInfo = props.planInfo || []
     return (
-        <div>
-            
+        <div className='dragable-container'>
             {
                 planList.map((item: any, index: number) => {
                     return (
@@ -30,11 +26,11 @@ export function DraggableList(props: any) {
                                     {...provided.draggableProps}
                                     {...provided.dragHandleProps}
                                     style={getItemStyle(snapshot.isDragging, provided.draggableProps.style)}
-                                    className="draggable-list-item"
+                                    className="dragable-item"
                                 >
-                                    <span>
+                                    <div className='task-content'>
                                         {item.content}
-                                    </span>
+                                    </div>
                                 </div>
                             )}
                         </Draggable>
@@ -42,6 +38,5 @@ export function DraggableList(props: any) {
                 })
             }
         </div>
-
     )
 }

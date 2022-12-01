@@ -6,16 +6,15 @@ export function DroppableList(props: any) {
     const planData = props.planData || [];
     return (planData.map((planInfo: any) => {
         return (
-            <div key={planInfo.type} className="draggable-container-group">
+            <div key={planInfo.type} className="group-container">
                 <DroppableHeader planInfo={planInfo} />
                 <Droppable droppableId={planInfo.type} >
                     {(provided, snapshot) => (
                         <div
                             ref={provided.innerRef}
-                            style={{ backgroundColor: snapshot.isDraggingOver ? 'blue' : 'grey', borderRight: '1px solid red' }}
                             {...provided.droppableProps}
+                            className={ "group-body " + (snapshot.isDraggingOver? 'is-dragging-over': '')}
                         >
-                            {/* <DroppableHeader planInfo={planInfo} /> */}
                             <DraggableList planList={planInfo.planList} planInfo={planInfo}></DraggableList>
                             {provided.placeholder}
                         </div>

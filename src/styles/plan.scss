@@ -1,24 +1,56 @@
 // 拖拽外层容器
-.draggable-container-wrap {
+.plan-container-wrap {
     width: 100%;
-    height: 100vh;
-    display: flex;
-    background-color: #f0f2f5;
-    // 拖拽组件容器
-    .draggable-container-group {
-        width: 100%;
-        height: calc(100% - 40px);
-        margin: 11px;
-        border: 1px solid red;
-        padding-left: 11px;
-        padding-right: 11px;
-        // 拖拽分组header
-        .draggable-group-header {
-            
+    height: 100%;
+    .plan-header {
+        text-align: left;
+        height: 40px;
+        line-height: 40px;
+        padding-left: 24px;
+        .title {
+            font-weight: 600;
+            font-size: 16px;
+            margin-right: 11px;
         }
-        // 拖拽组件
-        .draggable-list-item {
-            // color: red;
+    }
+    // 拖拽容器
+    .plan-body {
+        width: 100%;
+        height: calc(100vh - 40px);
+        display: flex;
+        background-color: #f0f2f5;
+        // 拖拽分组容器
+        .group-container {
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            margin: 0 11px;
+            border: 1px solid red;
+            // 分组头部header
+            .group-header {
+                height: 40px;
+                font-size: 16px;
+                text-align: center;
+                line-height: 40px;
+            }
+            // 分组主题，拖拽放置容器
+            .group-body {
+                width: 100%;
+                height: calc(100% - 40px);
+                padding: 11px 24px;
+                background-color: gray;
+                // 拖拽状态
+                &.is-dragging-over {
+                    background-color: blue;
+                }
+                // 拖拽容器
+                .dragable-container {
+                    // 拖拽项
+                    .dragable-item {
+
+                    }
+                }
+            }
         }
     }
 }
