@@ -1,0 +1,60 @@
+# # 一个workflow,名为deploy to github
+# name: deploy to github
+
+# on: # 此CI/ID触发时的事件
+#   push: #在代码提交时自动触发
+#     branches:
+#       - temp-dev
+
+# # 一个 CI/CD 的工作流有许多 jobs 组成，比如最典型的 job 是 lint，test，build。
+# jobs:
+#   build: # 构建job
+#     runs-on: ubuntu-latest # 跑workflow的服务器系统
+#     steps: # job的一系列动作
+#     # 切换分支获取源码
+#     - name: Checkout # step的名称，将会在 github action 的控制台中显示
+#       # 选择一个action，可以理解为若干 steps.run，有利于代码复用
+#       uses: actions/checkout@v3
+#     # 安装使用 node:10
+#     - name: use Node.js 10
+#       uses: actions/setup-node@v3
+#       with:
+#         node-version: 14
+#     # 运行命令，npm install && npm run build
+#     - name: npm install and build
+#         run: |
+#           npm install
+#           npm run build
+#         env:
+#           CI: true
+#     # 部署到腾讯云服务器
+#     - name: Deploy to Server
+#         uses: JamesIves/github-pages-deploy-action@v4.2.2
+#         with:
+#           # 存储库中要部署的文件夹。
+#           # 该步骤会将项目中 FOLDER 指定文件夹下的文件推送到 BRANCH 分支，作为Github Pages 部署的内容。
+#           branch: gh-pages # The branch the action should deploy to.
+#           folder: dist # The folder the action should deploy.
+
+
+
+name: Build and Deploy
+on: [push] # defaults to master
+permissions:
+  contents: write
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Install and Build 🔧
+        run: |
+          npm install
+          npm run-script build
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build # The folder the action should deploy.
