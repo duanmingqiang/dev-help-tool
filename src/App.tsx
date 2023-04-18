@@ -5,7 +5,7 @@ import './App.css';
 import { ViewJSon } from './views/json-parse';
 import { PlanList } from './views/plan';
 import { Quodrant } from './views/quadrant';
-
+import { BeastFightingChess } from './views/beast-fighting-chess'
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
@@ -25,6 +25,12 @@ const items: MenuProps['items'] = [
     key: 'quodrant',
     icon: <SettingOutlined />,
   },
+  {
+    label: (<Link to="/beast-fighting-chess">斗兽棋</Link>),
+    key: 'beast-fighting-chess',
+    icon: <SettingOutlined />,
+  },
+  
 ];
 
 const  App:FC = () => {
@@ -48,6 +54,7 @@ const  App:FC = () => {
             <Route path='/' element={<ViewJSon/>}></Route>
             <Route path='/plan' element={<PlanList/>}></Route>
             <Route path='/quodrant' element={<Quodrant/>}></Route>
+            <Route path='/beast-fighting-chess' element={<BeastFightingChess/>}></Route>
           </Routes>
         </div>
       </div>
